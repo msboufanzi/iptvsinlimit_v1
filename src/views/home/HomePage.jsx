@@ -42,7 +42,7 @@ const HomePage = () => {
   const handlePaymentSelect = (method) => {
     if (method === "whatsapp") {
       window.open(
-        `https://wa.me/34649324985?text=I'm interested in purchasing ${selectedProduct?.title || "your IPTV subscription"}`,
+        `https://wa.me/212681431448?text=I'm interested in purchasing ${selectedProduct?.title || "your IPTV subscription"}`,
         "_blank",
       )
     }

@@ -122,7 +122,7 @@ const PricingSection = ({ openPaymentPopup }) => {
       {/* WhatsApp Contact Button */}
       <div className="flex justify-center mt-10">
         <button
-          onClick={() => window.open("https://wa.me/34649324985", "_blank")}
+          onClick={() => window.open("https://wa.me/212681431448", "_blank")}
           className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition-colors"
         >
           <IoLogoWhatsapp className="text-2xl" />

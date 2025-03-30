@@ -100,7 +100,7 @@ const Footer = () => {
                 <div>
                   <FaWhatsapp
                     className="text-blue-600 mt-1 cursor-pointer"
-                    onClick={() => window.open("https://wa.me/34649324985", "_blank")}
+                    onClick={() => window.open("https://wa.me/212681431448", "_blank")}
                   />
                 </div>
                 <div className="text-white">+34 649 324 985</div>
@@ -121,7 +121,7 @@ const Footer = () => {
               <FooterSection title="SUPPORT">
                 <FooterLink
                   text="Contact"
-                  info="For any inquiries, please contact us via WhatsApp at +34 649 324 985 or email at support@tvsinlimites.com"
+                  info="For any inquiries, please contact us via WhatsApp at +212681431448 or email at support@tvsinlimites.com"
                 />
                 <FooterLink
                   text="FAQ"

@@ -24,7 +24,7 @@ const Hero = ({ scrollToPricing }) => {
           {/* Left Line */}
           <div className="w-16 sm:w-20 md:w-24 h-[2px] bg-blue-500 mt-2"></div>
 
-          <div>Welcome to TV Sin Limites</div>
+          <div>TV Sin Limites</div>
 
           {/* Right Line */}
           <div className="w-16 sm:w-20 md:w-24 h-[2px] bg-blue-500 mt-2"></div>

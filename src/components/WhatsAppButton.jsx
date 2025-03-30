@@ -36,7 +36,7 @@ const WhatsAppButton = () => {
     setTimeout(() => setIsAnimating(false), 1000)
 
     // Open WhatsApp
-    window.open("https://wa.me/+34649324985", "_blank")
+    window.open("https://wa.me/212681431448", "_blank")
   }
 
   return (

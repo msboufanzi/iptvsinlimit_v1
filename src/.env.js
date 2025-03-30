@@ -12,7 +12,7 @@ export const ENV = {
   STRIPE_SECRET_KEY: "YOUR_STRIPE_SECRET_KEY",
 
   // WhatsApp contact number
-  WHATSAPP_NUMBER: "+34649324985",
+  WHATSAPP_NUMBER: "+212681431448",
 
   // Email for contact form submissions
   CONTACT_EMAIL: "support@streamtvuniverse.com",
