@@ -12,6 +12,7 @@ import FeedBack from "../../components/home/FeedBack"
 import Question from "../../components/home/Question"
 import Footer from "../../components/footer/Footer"
 import PaymentPopup from "../../components/payment/PaymentPopup"
+import WhatsAppButton from "../../components/WhatsAppButton"
 import { useState } from "react"
 
 const HomePage = () => {
@@ -106,6 +107,9 @@ const HomePage = () => {
         onPaymentSelect={handlePaymentSelect}
         product={selectedProduct}
       />
+
+      {/* Floating WhatsApp Button */}
+      <WhatsAppButton />
     </div>
   )
 }

@@ -10,7 +10,7 @@ const Hero = ({ scrollToPricing }) => {
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-center items-center text-white gap-4 sm:gap-8 h-full pt-20">
         <div className="text-center max-w-2xl">
-          <h1 className="text-xl sm:text-3xl md:text-3xl lg:text-4xl font-bold mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             The Best IPTV
             <div className="flex gap-5 justify-center">
               <div>Subscription</div>
@@ -20,17 +20,17 @@ const Hero = ({ scrollToPricing }) => {
           </h1>
         </div>
 
-        <div className="flex items-center gap-5 text-xl sm:text-xl md:text-2xl">
+        <div className="flex items-center gap-5 text-xl sm:text-2xl md:text-3xl">
           {/* Left Line */}
           <div className="w-16 sm:w-20 md:w-24 h-[2px] bg-blue-500 mt-2"></div>
 
-          <div>Welcome to StreamTVUniverse</div>
+          <div>Welcome to TV Sin Limites</div>
 
           {/* Right Line */}
           <div className="w-16 sm:w-20 md:w-24 h-[2px] bg-blue-500 mt-2"></div>
         </div>
 
-        <div className="text-center max-w-2xl text-[13px] mr-8 ml-8 ">
+        <div className="text-center max-w-2xl text-base mr-8 ml-8">
           <p className="leading-relaxed">
             At StreamTVUniverse, We offer the best IPTV subscription service, providing access to over 22,000 TV
             channels and 150,000 VODs in 4K, FHD, and HD. Our service is accessible from any device and any location,
@@ -54,4 +54,3 @@ const Hero = ({ scrollToPricing }) => {
 }
 
 export default Hero
-

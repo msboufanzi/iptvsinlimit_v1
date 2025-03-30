@@ -11,19 +11,21 @@ import feedback6 from "../../assets/feedbacks/feedback6.webp"
 
 const FeedBack = ({ with_back }) => {
   const images = [feedback1, feedback2, feedback3, feedback4, feedback5, feedback6]
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0)
+  const totalPages = 3 // Show 2 images at a time, so 3 pages total
+  const imagesPerPage = 2
 
-  // Function to handle moving to the next slide
-  const nextSlide = () => {
-    if (currentIndex < images.length - 1) {
-      setCurrentIndex(currentIndex + 1)
+  // Function to handle moving to the next page
+  const nextPage = () => {
+    if (currentPage < totalPages - 1) {
+      setCurrentPage(currentPage + 1)
     }
   }
 
-  // Function to handle moving to the previous slide
-  const prevSlide = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1)
+  // Function to handle moving to the previous page
+  const prevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1)
     }
   }
 
@@ -61,8 +63,10 @@ const FeedBack = ({ with_back }) => {
             <div className="relative overflow-hidden mt-10">
               {/* Navigation arrows */}
               <div
-                className={`absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full p-2 cursor-pointer z-10 hover:bg-opacity-70 transition-all ${currentIndex === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
-                onClick={prevSlide}
+                className={`absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full p-2 cursor-pointer z-10 hover:bg-opacity-70 transition-all ${
+                  currentPage === 0 ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                onClick={prevPage}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -76,8 +80,10 @@ const FeedBack = ({ with_back }) => {
               </div>
 
               <div
-                className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full p-2 cursor-pointer z-10 hover:bg-opacity-70 transition-all ${currentIndex === images.length - 1 ? "opacity-50 cursor-not-allowed" : ""}`}
-                onClick={nextSlide}
+                className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full p-2 cursor-pointer z-10 hover:bg-opacity-70 transition-all ${
+                  currentPage === totalPages - 1 ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                onClick={nextPage}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -90,31 +96,77 @@ const FeedBack = ({ with_back }) => {
                 </svg>
               </div>
 
-              <div
-                className="flex transition-transform duration-500 gap-3"
-                style={{ transform: `translateX(-${currentIndex * (100 / images.length)}%)` }}
-              >
-                {images.map((img, index) => (
-                  <div
-                    key={index}
-                    className={`w-[50%] sm:w-[20%] flex-shrink-0 flex justify-center items-center ${currentIndex === index ? "scale-105 transition-transform duration-300" : ""}`}
-                  >
-                    <img
-                      src={img || "/placeholder.svg"}
-                      alt={`Customer Feedback ${index + 1}`}
-                      className="w-100 h-150 rounded-lg shadow-lg"
-                    />
+              {/* Fixed width container with overflow control */}
+              <div className="overflow-hidden">
+                <div
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(-${currentPage * 100}%)` }}
+                >
+                  {/* Page 1: Images 0-1 */}
+                  <div className="w-full flex-shrink-0 flex justify-center gap-4">
+                    <div className="w-[45%]">
+                      <img
+                        src={images[0] || "/placeholder.svg"}
+                        alt="Customer Feedback 1"
+                        className="w-full rounded-lg shadow-lg"
+                      />
+                    </div>
+                    <div className="w-[45%]">
+                      <img
+                        src={images[1] || "/placeholder.svg"}
+                        alt="Customer Feedback 2"
+                        className="w-full rounded-lg shadow-lg"
+                      />
+                    </div>
                   </div>
-                ))}
+
+                  {/* Page 2: Images 2-3 */}
+                  <div className="w-full flex-shrink-0 flex justify-center gap-4">
+                    <div className="w-[45%]">
+                      <img
+                        src={images[2] || "/placeholder.svg"}
+                        alt="Customer Feedback 3"
+                        className="w-full rounded-lg shadow-lg"
+                      />
+                    </div>
+                    <div className="w-[45%]">
+                      <img
+                        src={images[3] || "/placeholder.svg"}
+                        alt="Customer Feedback 4"
+                        className="w-full rounded-lg shadow-lg"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Page 3: Images 4-5 */}
+                  <div className="w-full flex-shrink-0 flex justify-center gap-4">
+                    <div className="w-[45%]">
+                      <img
+                        src={images[4] || "/placeholder.svg"}
+                        alt="Customer Feedback 5"
+                        className="w-full rounded-lg shadow-lg"
+                      />
+                    </div>
+                    <div className="w-[45%]">
+                      <img
+                        src={images[5] || "/placeholder.svg"}
+                        alt="Customer Feedback 6"
+                        className="w-full rounded-lg shadow-lg"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Dots indicator */}
               <div className="flex justify-center mt-4 gap-2">
-                {images.map((_, index) => (
+                {[0, 1, 2].map((pageIndex) => (
                   <button
-                    key={index}
-                    className={`h-2 w-2 rounded-full ${currentIndex === index ? "bg-blue-600" : "bg-white bg-opacity-50"}`}
-                    onClick={() => setCurrentIndex(index)}
+                    key={pageIndex}
+                    className={`h-2 w-2 rounded-full ${
+                      currentPage === pageIndex ? "bg-blue-600" : "bg-white bg-opacity-50"
+                    }`}
+                    onClick={() => setCurrentPage(pageIndex)}
                   />
                 ))}
               </div>

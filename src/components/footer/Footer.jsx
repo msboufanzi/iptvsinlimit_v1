@@ -7,11 +7,12 @@ import { FaWhatsapp } from "react-icons/fa"
 import { MdEmail } from "react-icons/md"
 import { GoChevronRight, GoChevronDown } from "react-icons/go"
 
+// Update the FooterSection component to handle multiple open sections better
 const FooterSection = ({ title, children }) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <div className="flex flex-col items-center sm:items-start sm:justify-start mt-3 gap-5">
+    <div className="flex flex-col items-center sm:items-start sm:justify-start mt-3 gap-5 w-full sm:w-auto">
       <div className="flex gap-3 cursor-pointer items-center" onClick={() => setIsExpanded(!isExpanded)}>
         <div className="text-white font-bold">{title}</div>
         <div className="bg-blue-600 w-12 h-0.5 mt-0"></div>
@@ -21,16 +22,17 @@ const FooterSection = ({ title, children }) => {
           <GoChevronRight className="text-blue-600 text-xl" />
         )}
       </div>
-      <div className={`flex flex-col gap-3 ${isExpanded ? "block" : "hidden sm:flex"}`}>{children}</div>
+      <div className={`flex flex-col gap-3 w-full ${isExpanded ? "block" : "hidden sm:flex"}`}>{children}</div>
     </div>
   )
 }
 
+// Update the FooterLink component to handle info display better
 const FooterLink = ({ text, info }) => {
   const [showInfo, setShowInfo] = useState(false)
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       <div
         className="flex gap-5 cursor-pointer hover:text-blue-400 transition-colors"
         onClick={() => setShowInfo(!showInfo)}
@@ -41,7 +43,7 @@ const FooterLink = ({ text, info }) => {
         <div className="text-white">{text}</div>
       </div>
 
-      {showInfo && <div className="bg-gray-800 p-3 rounded-lg ml-8 text-sm text-white">{info}</div>}
+      {showInfo && <div className="bg-gray-800 p-3 rounded-lg ml-8 text-sm text-white max-w-xs">{info}</div>}
     </div>
   )
 }
@@ -86,7 +88,9 @@ const Footer = () => {
 
         <div className="relative z-10 flex flex-col pt-5 pr-5 pl-5 sm:pr-20 sm:pl-20 gap-5 mr text-[12px] sm:text-xl">
           <div className="w-full h-0.5 bg-white"></div>
-          <div className="flex flex-col sm:flex-row justify-between">
+          {/* Update the main footer layout to be more responsive */}
+          <div className="flex flex-col sm:flex-row justify-between gap-8 sm:gap-4">
+            {/* Logo and contact section */}
             <div className="flex flex-col items-center sm:items-start justify-between">
               <div className="">
                 <img alt="logo" src={logo || "/placeholder.svg"} className="w-64" />
@@ -108,49 +112,56 @@ const Footer = () => {
                     onClick={() => (window.location.href = "mailto:support@streamtvuniverse.com")}
                   />
                 </div>
-                <div className="text-white">support@streamtvuniverse.com</div>
+                <div className="text-white">support@tvsinlimites.com</div>
               </div>
             </div>
 
-            <FooterSection title="SUPPORT">
-              <FooterLink
-                text="Contact"
-                info="For any inquiries, please contact us via WhatsApp at +34 649 324 985 or email at support@streamtvuniverse.com"
-              />
-              <FooterLink
-                text="FAQ"
-                info="Find answers to commonly asked questions about our IPTV service in our FAQ section."
-              />
-              <FooterLink
-                text="About Us"
-                info="StreamTVUniverse is a premium IPTV service provider offering over 22,000 channels and 150,000 VODs in HD, FHD, and 4K quality."
-              />
-              <FooterLink
-                text="BLOG"
-                info="Our blog features the latest news, updates, and guides about our IPTV service and the industry."
-              />
-            </FooterSection>
+            {/* Support section */}
+            <div className="w-full sm:w-auto">
+              <FooterSection title="SUPPORT">
+                <FooterLink
+                  text="Contact"
+                  info="For any inquiries, please contact us via WhatsApp at +34 649 324 985 or email at support@tvsinlimites.com"
+                />
+                <FooterLink
+                  text="FAQ"
+                  info="Find answers to commonly asked questions about our IPTV service in our FAQ section."
+                />
+                <FooterLink
+                  text="About Us"
+                  info="TV Sin Limites is a premium IPTV service provider offering over 22,000 channels and 150,000 VODs in HD, FHD, and 4K quality."
+                />
+                <FooterLink
+                  text="BLOG"
+                  info="Our blog features the latest news, updates, and guides about our IPTV service and the industry."
+                />
+              </FooterSection>
+            </div>
 
-            <FooterSection title="Useful Links">
-              <FooterLink
-                text="Plans & Prices"
-                info="Explore our flexible subscription plans starting from just $12.99/month."
-              />
-              <FooterLink
-                text="Privacy Policy"
-                info="We respect your privacy and are committed to protecting your personal data. Our Privacy Policy outlines how we collect, use, and safeguard your information."
-              />
-              <FooterLink
-                text="Terms Of Service"
-                info="By using our service, you agree to our Terms of Service, which outline the rules, guidelines, and restrictions for using our IPTV service."
-              />
-              <FooterLink
-                text="Refund Policy"
-                info="We offer a 7-day money-back guarantee if you're not satisfied with our service. Contact our support team to request a refund."
-              />
-            </FooterSection>
+            {/* Useful Links section */}
+            <div className="w-full sm:w-auto">
+              <FooterSection title="Useful Links">
+                <FooterLink
+                  text="Plans & Prices"
+                  info="Explore our flexible subscription plans starting from just $12.99/month."
+                />
+                <FooterLink
+                  text="Privacy Policy"
+                  info="We respect your privacy and are committed to protecting your personal data. Our Privacy Policy outlines how we collect, use, and safeguard your information."
+                />
+                <FooterLink
+                  text="Terms Of Service"
+                  info="By using our service, you agree to our Terms of Service, which outline the rules, guidelines, and restrictions for using our IPTV service."
+                />
+                <FooterLink
+                  text="Refund Policy"
+                  info="We offer a 7-day money-back guarantee if you're not satisfied with our service. Contact our support team to request a refund."
+                />
+              </FooterSection>
+            </div>
 
-            <div className="flex flex-col items-center sm:items-start sm:justify-start gap-5 mt-3">
+            {/* Newsletter section */}
+            <div className="flex flex-col items-center sm:items-start sm:justify-start gap-5 mt-3 w-full sm:w-auto">
               <div className="flex gap-3">
                 <div className="text-white font-bold">Newsletter Sign Up</div>
                 <div className="bg-blue-600 w-12 h-0.5 mt-2 sm:mt-4"></div>
@@ -185,7 +196,7 @@ const Footer = () => {
           <div className="flex items-center justify-center mt-6 mb-10 sm:text-xl gap-2">
             <div className="text-white">Copyright © 2024 IPTV, All rights reserved. Powered by</div>
             <div>
-              <a className="text-blue-600">StreamTVUniverse</a>
+              <a className="text-blue-600">TV Sin Limites</a>
             </div>
           </div>
         </div>
@@ -195,4 +206,3 @@ const Footer = () => {
 }
 
 export default Footer
-
