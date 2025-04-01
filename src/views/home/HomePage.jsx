@@ -28,11 +28,13 @@ const HomePage = () => {
   const [isPaypalPopupOpen, setIsPaypalPopupOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [paymentStatus, setPaymentStatus] = useState(null)
-  // Add isProcessing state to track loading state
-  const [isProcessing, setIsProcessing] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   // Check for payment status in URL on component mount
   useEffect(() => {
+    // Clear any stuck payment processing state
+    sessionStorage.removeItem('paymentProcessing')
+    
     const urlParams = new URLSearchParams(window.location.search)
     const success = urlParams.get("success") === "true"
     const canceled = urlParams.get("canceled") === "true"
@@ -43,13 +45,12 @@ const HomePage = () => {
       // Show success message
       setPaymentStatus({
         success: true,
-        message: "Payment successful! Thank you for your purchase.",
+        message: "Payment successful! Thank you for your purchase."
       })
-
+      
       // Make sure popups are closed
       setIsPaymentPopupOpen(false)
       setIsPaypalPopupOpen(false)
-      setIsProcessing(false)
 
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname)
@@ -57,18 +58,46 @@ const HomePage = () => {
       // Show canceled message
       setPaymentStatus({
         success: false,
-        message: "Payment was canceled. No charges were made.",
+        message: "Payment was canceled. No charges were made."
       })
-
+      
       // Make sure popups are closed
       setIsPaymentPopupOpen(false)
       setIsPaypalPopupOpen(false)
-      setIsProcessing(false)
 
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname)
     }
+    
+    // Add event listener for page visibility changes
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    
+    // Simulate content loading
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
   }, [])
+  
+  // Handle page visibility changes (when user returns from payment gateway)
+  const handleVisibilityChange = () => {
+    if (!document.hidden) {
+      // User has returned to the page
+      const wasProcessing = sessionStorage.getItem('paymentProcessing')
+      
+      if (wasProcessing) {
+        // Clear the processing state
+        sessionStorage.removeItem('paymentProcessing')
+        
+        // Close any open popups
+        setIsPaymentPopupOpen(false)
+        setIsPaypalPopupOpen(false)
+      }
+    }
+  }
 
   // Function to scroll to a section
   const scrollToSection = (ref) => {
@@ -94,15 +123,15 @@ const HomePage = () => {
       setIsPaymentPopupOpen(false)
       setIsPaypalPopupOpen(true)
     } else if (method === "stripe") {
-      // Set processing state for Stripe
-      setIsProcessing(true)
+      // Stripe is handled in the PaymentPopup component
+      // We don't need to do anything here
     }
-    // Stripe is handled directly in the PaymentPopup component
   }
 
   // Handle PayPal success
   const handlePaypalSuccess = (details) => {
     setIsPaypalPopupOpen(false)
+    sessionStorage.removeItem('paymentProcessing')
 
     // Show success message with more details
     setPaymentStatus({
@@ -114,10 +143,18 @@ const HomePage = () => {
   // Handle PayPal cancel
   const handlePaypalCancel = () => {
     setIsPaypalPopupOpen(false)
+    sessionStorage.removeItem('paymentProcessing')
   }
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* Loading overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black z-50 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      )}
+    
       {/* Navbar with scroll functions */}
       <Navbar
         scrollToPricing={() => scrollToSection(pricingRef)}
@@ -196,7 +233,10 @@ const HomePage = () => {
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 animate-fadeIn">
           <div className="relative">
             <button
-              onClick={() => setIsPaypalPopupOpen(false)}
+              onClick={() => {
+                setIsPaypalPopupOpen(false)
+                sessionStorage.removeItem('paymentProcessing')
+              }}
               className="absolute -top-4 -right-4 bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-700"
             >
               ×
@@ -213,4 +253,3 @@ const HomePage = () => {
 }
 
 export default HomePage
-

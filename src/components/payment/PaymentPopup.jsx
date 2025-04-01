@@ -2,10 +2,17 @@
 import { IoLogoWhatsapp } from "react-icons/io"
 import { SiPaypal } from "react-icons/si"
 import { FaStripe } from "react-icons/fa"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
   const [isProcessing, setIsProcessing] = useState(false)
+
+  // Reset processing state when popup opens or closes
+  useEffect(() => {
+    if (!isOpen) {
+      setIsProcessing(false)
+    }
+  }, [isOpen])
 
   if (!isOpen) return null
 
@@ -20,7 +27,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
 
   const handleStripePayment = () => {
     setIsProcessing(true)
-
+    
     // Notify parent component about processing state
     onPaymentSelect("stripe")
 
@@ -29,6 +36,9 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
     const stripeLink = stripeLinks[months]
 
     if (stripeLink) {
+      // Store processing state in sessionStorage before redirect
+      sessionStorage.setItem('paymentProcessing', 'true')
+      
       // Add a return URL parameter to redirect back to the site after payment
       const returnUrl = encodeURIComponent(window.location.origin + "/payment/success?success=true")
       const cancelUrl = encodeURIComponent(window.location.origin + "/payment/failed?canceled=true")
@@ -43,6 +53,9 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
   }
 
   const handlePaypalPayment = () => {
+    // Store processing state in sessionStorage before redirect
+    sessionStorage.setItem('paymentProcessing', 'true')
+    
     setIsProcessing(true)
     onPaymentSelect("paypal")
   }
@@ -54,6 +67,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
   // Add a clean close function that resets processing state
   const handleClose = () => {
     setIsProcessing(false)
+    sessionStorage.removeItem('paymentProcessing')
     onClose()
   }
 
@@ -139,4 +153,3 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
 }
 
 export default PaymentPopup
-

@@ -1,11 +1,18 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { FaPaypal } from "react-icons/fa"
 import { createPayPalOrder, getPayPalEnvironment } from "../../api/paypal"
 
 const PaypalPayment = ({ product, onSuccess, onCancel }) => {
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState(null)
+
+  // Clear processing state when component unmounts
+  useEffect(() => {
+    return () => {
+      sessionStorage.removeItem('paymentProcessing')
+    }
+  }, [])
 
   // Handle direct PayPal checkout
   const handlePayPalCheckout = async () => {
@@ -32,6 +39,7 @@ const PaypalPayment = ({ product, onSuccess, onCancel }) => {
       console.error("PayPal checkout error:", err)
       setError("Failed to connect to PayPal. Please try another payment method.")
       setIsProcessing(false)
+      sessionStorage.removeItem('paymentProcessing')
     }
   }
 
@@ -55,6 +63,7 @@ const PaypalPayment = ({ product, onSuccess, onCancel }) => {
     } catch (err) {
       console.error("Error redirecting to PayPal:", err)
       setError("Failed to redirect to PayPal. Please try another payment method.")
+      sessionStorage.removeItem('paymentProcessing')
     }
   }
 
@@ -103,7 +112,10 @@ const PaypalPayment = ({ product, onSuccess, onCancel }) => {
               Try Direct PayPal
             </button>
             <button
-              onClick={onCancel}
+              onClick={() => {
+                onCancel()
+                sessionStorage.removeItem('paymentProcessing')
+              }}
               className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors"
             >
               Cancel
@@ -121,4 +133,3 @@ const PaypalPayment = ({ product, onSuccess, onCancel }) => {
 }
 
 export default PaypalPayment
-
