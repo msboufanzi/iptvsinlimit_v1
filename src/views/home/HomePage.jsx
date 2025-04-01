@@ -27,21 +27,31 @@ const HomePage = () => {
   const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false)
   const [isPaypalPopupOpen, setIsPaypalPopupOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [paymentStatus, setPaymentStatus] = useState(null)
 
   // Check for payment status in URL on component mount
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
-    const paymentStatus = urlParams.get("payment_status")
+    const success = urlParams.get("success") === "true"
+    const canceled = urlParams.get("canceled") === "true"
+    const paymentId = urlParams.get("paymentId")
+    const token = urlParams.get("token")
 
-    if (paymentStatus === "success") {
+    if (success || paymentId || token) {
       // Show success message
-      alert("Payment successful! Thank you for your purchase.")
+      setPaymentStatus({
+        success: true,
+        message: "Payment successful! Thank you for your purchase.",
+      })
 
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname)
-    } else if (paymentStatus === "canceled") {
+    } else if (canceled) {
       // Show canceled message
-      alert("Payment was canceled. No charges were made.")
+      setPaymentStatus({
+        success: false,
+        message: "Payment was canceled. No charges were made.",
+      })
 
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname)
@@ -78,19 +88,12 @@ const HomePage = () => {
   // Handle PayPal success
   const handlePaypalSuccess = (details) => {
     setIsPaypalPopupOpen(false)
-    
+
     // Show success message with more details
-    const message = `
-      Payment completed successfully!
-      Transaction ID: ${details.id || "N/A"}
-      Status: ${details.status || "Completed"}
-      
-      Thank you for your purchase. You will receive your login details via email shortly.
-    `
-    alert(message)
-    
-    // Optionally redirect to success page
-    // window.location.href = "/payment/success"
+    setPaymentStatus({
+      success: true,
+      message: `Payment completed successfully! Transaction ID: ${details.id || "N/A"}. You will receive your login details via email shortly.`,
+    })
   }
 
   // Handle PayPal cancel
@@ -108,6 +111,23 @@ const HomePage = () => {
         scrollToFaq={() => scrollToSection(faqRef)}
         scrollToContact={() => scrollToSection(contactRef)}
       />
+
+      {/* Payment Status Alert */}
+      {paymentStatus && (
+        <div
+          className={`fixed top-20 left-0 right-0 z-50 mx-auto max-w-md p-4 rounded-lg ${
+            paymentStatus.success ? "bg-green-600" : "bg-red-600"
+          } text-white text-center animate-fadeIn`}
+        >
+          {paymentStatus.message}
+          <button
+            className="ml-4 bg-white bg-opacity-20 px-2 py-1 rounded-md hover:bg-opacity-30"
+            onClick={() => setPaymentStatus(null)}
+          >
+            ×
+          </button>
+        </div>
+      )}
 
       {/* Hero Section */}
       <Hero scrollToPricing={() => scrollToSection(pricingRef)} />
@@ -178,3 +198,4 @@ const HomePage = () => {
 }
 
 export default HomePage
+
