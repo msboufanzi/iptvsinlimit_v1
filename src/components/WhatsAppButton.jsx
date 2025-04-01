@@ -1,62 +1,52 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { FaWhatsapp } from "react-icons/fa"
 
 const WhatsAppButton = () => {
-  const [isVisible, setIsVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
+  // Create the WhatsApp URL with the phone number
+  const whatsappNumber = "34649324985"
+  const message = "Hello, I'm interested in your IPTV service. Can you provide more information?"
+  const encodedMessage = encodeURIComponent(message)
 
-  // Handle scroll events to show/hide button
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-
-      // Don't trigger while animating
-      if (isAnimating) return
-
-      // Show button when scrolling up, hide when scrolling down
-      if (currentScrollY < lastScrollY || currentScrollY < 100) {
-        setIsVisible(true)
-      } else if (currentScrollY > 100 && currentScrollY > lastScrollY) {
-        setIsVisible(false)
-      }
-
-      setLastScrollY(currentScrollY)
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [lastScrollY, isAnimating])
-
-  const handleClick = () => {
-    // Animate the button when clicked
-    setIsAnimating(true)
-    setTimeout(() => setIsAnimating(false), 1000)
-
-    // Open WhatsApp
-    window.open("https://wa.me/212681431448", "_blank")
-  }
+  // Direct WhatsApp URL that works on both mobile and web
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`
 
   return (
-    <div
-      className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-      }`}
-    >
-      <button
-        onClick={handleClick}
-        className={`bg-blue-600 hover:bg-blue-700 text-white rounded-full w-14 h-14 shadow-lg flex items-center justify-center transition-all duration-300 ${
-          isAnimating ? "scale-110" : "hover:scale-105"
-        }`}
-        aria-label="Contact via WhatsApp"
+    <div className="fixed bottom-6 right-6 z-[9999]">
+      {/* Pure HTML approach with no JavaScript */}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-[#25D366] hover:bg-[#20BA5C] text-white rounded-full w-16 h-16 shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
-        <FaWhatsapp className="text-2xl" />
-      </button>
+        <FaWhatsapp size={32} />
+      </a>
 
-      {/* Subtle pulsing effect */}
-      <span className="absolute inset-0 rounded-full bg-blue-600 animate-pulse opacity-60"></span>
+      {/* Pulsing effect */}
+      <div
+        className="absolute inset-0 rounded-full bg-green-500 opacity-60"
+        style={{ animation: "pulse 2s infinite", zIndex: -1 }}
+      ></div>
+
+      {/* Inline animation for maximum compatibility */}
+      <style jsx>{`
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+            opacity: 0.6;
+          }
+          70% {
+            transform: scale(1.5);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 0;
+          }
+        }
+      `}</style>
     </div>
   )
 }

@@ -2,7 +2,7 @@
 import { VscPassFilled } from "react-icons/vsc"
 import payments from "../../assets/payments.png"
 
-// Fonction pour créer un élément stylisé
+// Function to create a styled element
 const offersText = ({ text, isVip }) => {
   return (
     <div className="flex w-full justify-start items-start gap-3">
@@ -16,7 +16,11 @@ const offersText = ({ text, isVip }) => {
 
 const PackageOffer = ({ nbr_month, plan, prix, isVip, titel, openPaymentPopup }) => {
   const handleBuyNow = () => {
-    openPaymentPopup({ title: titel, price: prix, months: nbr_month })
+    openPaymentPopup({
+      title: titel,
+      price: prix,
+      months: nbr_month.toString(),
+    })
   }
 
   return (
@@ -31,7 +35,7 @@ const PackageOffer = ({ nbr_month, plan, prix, isVip, titel, openPaymentPopup })
         <p className="pt-12"></p> // Empty <p> tag if not VIP
       )}
 
-      <h1 className="text-3xl font-bold">
+      <h1 className="text-3xl font-bold text-blue-600">
         {nbr_month} {nbr_month === 1 ? "MONTH" : "MONTHS"}
       </h1>
       <h2 className="text-blue-600 text-2xl">{plan}</h2>
