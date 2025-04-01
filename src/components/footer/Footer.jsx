@@ -6,203 +6,165 @@ import logo from "../../assets/logo.png"
 import { FaWhatsapp } from "react-icons/fa"
 import { MdEmail } from "react-icons/md"
 import { GoChevronRight, GoChevronDown } from "react-icons/go"
-
-// Update the FooterSection component to handle multiple open sections better
-const FooterSection = ({ title, children }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  return (
-    <div className="flex flex-col items-center sm:items-start sm:justify-start mt-3 gap-5 w-full sm:w-auto">
-      <div className="flex gap-3 cursor-pointer items-center" onClick={() => setIsExpanded(!isExpanded)}>
-        <div className="text-white font-bold">{title}</div>
-        <div className="bg-blue-600 w-12 h-0.5 mt-0"></div>
-        {isExpanded ? (
-          <GoChevronDown className="text-blue-600 text-xl" />
-        ) : (
-          <GoChevronRight className="text-blue-600 text-xl" />
-        )}
-      </div>
-      <div className={`flex flex-col gap-3 w-full ${isExpanded ? "block" : "hidden sm:flex"}`}>{children}</div>
-    </div>
-  )
-}
-
-// Update the FooterLink component to handle info display better
-const FooterLink = ({ text, info }) => {
-  const [showInfo, setShowInfo] = useState(false)
-
-  return (
-    <div className="flex flex-col gap-2 w-full">
-      <div
-        className="flex gap-5 cursor-pointer hover:text-blue-400 transition-colors"
-        onClick={() => setShowInfo(!showInfo)}
-      >
-        <div>
-          <GoChevronRight className="text-blue-600 text-xl mt-1" />
-        </div>
-        <div className="text-white">{text}</div>
-      </div>
-
-      {showInfo && <div className="bg-gray-800 p-3 rounded-lg ml-8 text-sm text-white max-w-xs">{info}</div>}
-    </div>
-  )
-}
+import { saveEmail } from "../../utils/emailStorage"
 
 const Footer = () => {
   const [email, setEmail] = useState("")
   const [subscriptionStatus, setSubscriptionStatus] = useState(null)
+  const [isCompanyOpen, setIsCompanyOpen] = useState(false)
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false)
 
-  const handleEmailSubscribe = (e) => {
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handleEmailSubscribe = async (e) => {
     e.preventDefault()
 
-    if (!email || !email.includes("@")) {
-      setSubscriptionStatus({
-        success: false,
-        message: "Please enter a valid email address",
-      })
-      return
+    const result = await saveEmail(email, "footer-newsletter")
+
+    setSubscriptionStatus(result)
+
+    if (result.success) {
+      // Clear the form
+      setEmail("")
+
+      // Clear the status message after 3 seconds
+      setTimeout(() => {
+        setSubscriptionStatus(null)
+      }, 3000)
     }
+  }
 
-    // In a real app, you would send this to your server
-    console.log("Email subscribed:", email)
+  const toggleCompany = () => {
+    setIsCompanyOpen(!isCompanyOpen)
+  }
 
-    // Simulate successful subscription
-    setSubscriptionStatus({
-      success: true,
-      message: "Thank you for subscribing!",
-    })
-
-    // Clear the form
-    setEmail("")
-
-    // Clear the status message after 3 seconds
-    setTimeout(() => {
-      setSubscriptionStatus(null)
-    }, 3000)
+  const toggleResources = () => {
+    setIsResourcesOpen(!isResourcesOpen)
   }
 
   return (
-    <div className="">
-      <div className="relative bg-cover bg-center w-full" style={{ backgroundImage: `url(${back3})` }}>
-        <div className="absolute inset-0 bg-black opacity-90"></div>
-
-        <div className="relative z-10 flex flex-col pt-5 pr-5 pl-5 sm:pr-20 sm:pl-20 gap-5 mr text-[12px] sm:text-xl">
-          <div className="w-full h-0.5 bg-white"></div>
-          {/* Update the main footer layout to be more responsive */}
-          <div className="flex flex-col sm:flex-row justify-between gap-8 sm:gap-4">
-            {/* Logo and contact section */}
-            <div className="flex flex-col items-center sm:items-start justify-between">
-              <div className="">
-                <img alt="logo" src={logo || "/placeholder.svg"} className="w-64" />
-              </div>
-              <div className="text-white pt-3">You can contact us:</div>
-              <div className="flex gap-2 sm:gap-5">
-                <div>
-                  <FaWhatsapp
-                    className="text-blue-600 mt-1 cursor-pointer"
-                    onClick={() => window.open("https://wa.me/212681431448", "_blank")}
-                  />
-                </div>
-                <div className="text-white">+34 649 324 985</div>
-              </div>
-              <div className="flex gap-5">
-                <div>
-                  <MdEmail
-                    className="text-blue-600 mt-1 cursor-pointer"
-                    onClick={() => (window.location.href = "mailto:support@streamtvuniverse.com")}
-                  />
-                </div>
-                <div className="text-white">support@tvsinlimites.com</div>
-              </div>
-            </div>
-
-            {/* Support section */}
-            <div className="w-full sm:w-auto">
-              <FooterSection title="SUPPORT">
-                <FooterLink
-                  text="Contact"
-                  info="For any inquiries, please contact us via WhatsApp at +212681431448 or email at support@tvsinlimites.com"
-                />
-                <FooterLink
-                  text="FAQ"
-                  info="Find answers to commonly asked questions about our IPTV service in our FAQ section."
-                />
-                <FooterLink
-                  text="About Us"
-                  info="TV Sin Limites is a premium IPTV service provider offering over 22,000 channels and 150,000 VODs in HD, FHD, and 4K quality."
-                />
-                <FooterLink
-                  text="BLOG"
-                  info="Our blog features the latest news, updates, and guides about our IPTV service and the industry."
-                />
-              </FooterSection>
-            </div>
-
-            {/* Useful Links section */}
-            <div className="w-full sm:w-auto">
-              <FooterSection title="Useful Links">
-                <FooterLink
-                  text="Plans & Prices"
-                  info="Explore our flexible subscription plans starting from just $12.99/month."
-                />
-                <FooterLink
-                  text="Privacy Policy"
-                  info="We respect your privacy and are committed to protecting your personal data. Our Privacy Policy outlines how we collect, use, and safeguard your information."
-                />
-                <FooterLink
-                  text="Terms Of Service"
-                  info="By using our service, you agree to our Terms of Service, which outline the rules, guidelines, and restrictions for using our IPTV service."
-                />
-                <FooterLink
-                  text="Refund Policy"
-                  info="We offer a 7-day money-back guarantee if you're not satisfied with our service. Contact our support team to request a refund."
-                />
-              </FooterSection>
-            </div>
-
-            {/* Newsletter section */}
-            <div className="flex flex-col items-center sm:items-start sm:justify-start gap-5 mt-3 w-full sm:w-auto">
-              <div className="flex gap-3">
-                <div className="text-white font-bold">Newsletter Sign Up</div>
-                <div className="bg-blue-600 w-12 h-0.5 mt-2 sm:mt-4"></div>
-              </div>
-              <div className="text-white">Sign Up To Get Exclusive Offers!</div>
-              <form onSubmit={handleEmailSubscribe} className="flex flex-col gap-3 w-full">
-                <input
-                  type="email"
-                  placeholder="Your email address..."
-                  className="pt-3 pb-3 sm:pt-5 sm:pb-5 pr-4 pl-4 rounded-[8px] text-black"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-blue-800 pt-3 pb-3 sm:pt-5 sm:pb-5 pr-4 pl-4 rounded-[8px] text-white hover:bg-blue-700 transition-colors"
-                >
-                  SUBSCRIBE NOW
-                </button>
-              </form>
-
-              {subscriptionStatus && (
-                <div className={`mt-2 text-sm ${subscriptionStatus.success ? "text-green-500" : "text-red-500"}`}>
-                  {subscriptionStatus.message}
-                </div>
-              )}
+    <footer className="bg-cover bg-center text-white py-12 relative" style={{ backgroundImage: `url(${back3})` }}>
+      <div className="absolute inset-0 bg-black opacity-60"></div>
+      <div className="container mx-auto relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* First Column - Logo and Description */}
+          <div>
+            <img src={logo || "/placeholder.svg"} alt="Logo" className="h-12 mb-4" />
+            <p className="text-sm">
+              Your trusted partner in innovative solutions. We provide cutting-edge technology and services to help your
+              business thrive.
+            </p>
+            <div className="flex space-x-4 mt-4">
+              <a
+                href="https://wa.me/YOUR_WHATSAPP_NUMBER"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-500 hover:text-green-700"
+              >
+                <FaWhatsapp size={24} />
+              </a>
+              <a href="mailto:info@example.com" className="text-gray-300 hover:text-gray-400">
+                <MdEmail size={24} />
+              </a>
             </div>
           </div>
 
-          <div className="w-full h-0.5 bg-white"></div>
-          <div className="flex items-center justify-center mt-6 mb-10 sm:text-xl gap-2">
-            <div className="text-white">Copyright © 2024 IPTV, All rights reserved. Powered by</div>
-            <div>
-              <a className="text-blue-600">TV Sin Limites</a>
+          {/* Second Column - Company */}
+          <div>
+            <div className="flex justify-between items-center mb-2 md:hidden" onClick={toggleCompany}>
+              <h3 className="text-lg font-semibold">Company</h3>
+              {isCompanyOpen ? <GoChevronDown /> : <GoChevronRight />}
             </div>
+            <h3 className="text-lg font-semibold hidden md:block">Company</h3>
+            <ul className={`mt-2 space-y-1 ${isCompanyOpen ? "" : "hidden md:block"}`}>
+              <li>
+                <a href="#" className="hover:text-gray-300 text-sm">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 text-sm">
+                  Our Mission
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 text-sm">
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 text-sm">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Third Column - Resources */}
+          <div>
+            <div className="flex justify-between items-center mb-2 md:hidden" onClick={toggleResources}>
+              <h3 className="text-lg font-semibold">Resources</h3>
+              {isResourcesOpen ? <GoChevronDown /> : <GoChevronRight />}
+            </div>
+            <h3 className="text-lg font-semibold hidden md:block">Resources</h3>
+            <ul className={`mt-2 space-y-1 ${isResourcesOpen ? "" : "hidden md:block"}`}>
+              <li>
+                <a href="#" className="hover:text-gray-300 text-sm">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 text-sm">
+                  Support
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 text-sm">
+                  Terms of Service
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 text-sm">
+                  Privacy Policy
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Fourth Column - Newsletter */}
+          <div>
+            <h3 className="text-lg font-semibold">Newsletter</h3>
+            <p className="text-sm mt-2">Subscribe to our newsletter to stay updated on the latest news and offers.</p>
+            <form className="mt-4" onSubmit={handleEmailSubscribe}>
+              <input
+                type="email"
+                placeholder="Your Email"
+                className="bg-gray-700 text-white px-4 py-2 rounded-l focus:outline-none text-sm w-full md:w-auto"
+                value={email}
+                onChange={handleEmailChange}
+              />
+              <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-r text-sm">
+                Subscribe
+              </button>
+            </form>
+            {subscriptionStatus && (
+              <p className={`mt-2 text-sm ${subscriptionStatus.success ? "text-green-500" : "text-red-500"}`}>
+                {subscriptionStatus.message}
+              </p>
+            )}
           </div>
         </div>
+
+        {/* Bottom Line */}
+        <div className="border-t border-gray-700 mt-8 pt-4 text-center text-sm">
+          &copy; {new Date().getFullYear()} All rights reserved.
+        </div>
       </div>
-    </div>
+    </footer>
   )
 }
 
 export default Footer
+

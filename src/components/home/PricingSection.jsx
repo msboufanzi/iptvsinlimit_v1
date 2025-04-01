@@ -3,38 +3,28 @@
 import { useState } from "react"
 import { IoLogoWhatsapp } from "react-icons/io"
 import PackageOffer from "./PackageOffer"
+import { saveEmail } from "../../utils/emailStorage"
 
 const PricingSection = ({ openPaymentPopup }) => {
   const [email, setEmail] = useState("")
   const [emailStatus, setEmailStatus] = useState(null)
 
-  const handleEmailSubmit = (e) => {
+  const handleEmailSubmit = async (e) => {
     e.preventDefault()
 
-    if (!email || !email.includes("@")) {
-      setEmailStatus({
-        success: false,
-        message: "Please enter a valid email address",
-      })
-      return
+    const result = await saveEmail(email, "pricing-section")
+
+    setEmailStatus(result)
+
+    if (result.success) {
+      // Clear the form
+      setEmail("")
+
+      // Clear the status message after 3 seconds
+      setTimeout(() => {
+        setEmailStatus(null)
+      }, 3000)
     }
-
-    // In a real app, you would send this to your server
-    console.log("Email submitted:", email)
-
-    // Simulate successful submission
-    setEmailStatus({
-      success: true,
-      message: "Thank you! We'll be in touch soon.",
-    })
-
-    // Clear the form
-    setEmail("")
-
-    // Clear the status message after 3 seconds
-    setTimeout(() => {
-      setEmailStatus(null)
-    }, 3000)
   }
 
   return (
@@ -54,6 +44,16 @@ const PricingSection = ({ openPaymentPopup }) => {
 
       {/* Package Offers */}
       <div className="flex flex-col sm:flex-row items-center justify-center mr-6 ml-6 mt-5 mb-9 gap-3">
+        {/* Test Package */}
+        <PackageOffer
+          nbr_month="test"
+          plan={"Test Plan"}
+          prix={"€1.00"}
+          isVip={0}
+          titel={"Test IPTV – 24 Hours Access"}
+          openPaymentPopup={openPaymentPopup}
+          description="Try our service for 24 hours"
+        />
         <PackageOffer
           nbr_month={1}
           plan={"Basic Plan"}
@@ -61,30 +61,34 @@ const PricingSection = ({ openPaymentPopup }) => {
           isVip={0}
           titel={"Premium IPTV – 1 Month Subscription"}
           openPaymentPopup={openPaymentPopup}
+          description="Full access for 1 month"
         />
         <PackageOffer
           nbr_month={3}
-          plan={"Basic Plan"}
+          plan={"Standard Plan"}
           prix={"€39.99"}
           isVip={0}
           titel={"Premium IPTV – 3 Months Subscription"}
           openPaymentPopup={openPaymentPopup}
+          description="Full access for 3 months"
         />
         <PackageOffer
           nbr_month={6}
-          plan={"Basic Plan"}
+          plan={"Premium Plan"}
           prix={"€49.99"}
           isVip={0}
           titel={"Premium IPTV – 6 Months Subscription"}
           openPaymentPopup={openPaymentPopup}
+          description="Full access for 6 months"
         />
         <PackageOffer
           nbr_month={12}
-          plan={"Basic Plan"}
+          plan={"Luxury Plan"}
           prix={"€69.99"}
           isVip={1}
           titel={"Luxury Plan – 12 Months Subscription"}
           openPaymentPopup={openPaymentPopup}
+          description="Full access for 12 months"
         />
       </div>
 

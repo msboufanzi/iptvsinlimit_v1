@@ -11,6 +11,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
 
   // Stripe payment links for different subscription plans
   const stripeLinks = {
+    test: "https://buy.stripe.com/00g7vi9Ilebxf9mdQY", // Test - €1.00 EUR
     1: "https://buy.stripe.com/6oE4j6cUxd7tf9m7sw", // 1 Month - €12.99 EUR
     3: "https://buy.stripe.com/14k9Dq3jXd7t7GU7sx", // 3 Months - €39.99 EUR
     6: "https://buy.stripe.com/aEUeXK07L0kHgdq7sy", // 6 Months - €49.99 EUR
@@ -20,14 +21,18 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
   const handleStripePayment = () => {
     setIsProcessing(true)
 
+    // Notify parent component about processing state
+    onPaymentSelect("stripe")
+
     // Get the appropriate Stripe link based on the product's months
     const months = product?.months || "1"
     const stripeLink = stripeLinks[months]
 
     if (stripeLink) {
       // Add a return URL parameter to redirect back to the site after payment
-      const returnUrl = encodeURIComponent(window.location.origin)
-      const linkWithReturn = `${stripeLink}?client_reference_id=${returnUrl}`
+      const returnUrl = encodeURIComponent(window.location.origin + "/payment/success?success=true")
+      const cancelUrl = encodeURIComponent(window.location.origin + "/payment/failed?canceled=true")
+      const linkWithReturn = `${stripeLink}?client_reference_id=${returnUrl}&cancel_url=${cancelUrl}`
 
       // Redirect to Stripe payment page
       window.location.href = linkWithReturn
@@ -46,12 +51,18 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
     onPaymentSelect("whatsapp")
   }
 
+  // Add a clean close function that resets processing state
+  const handleClose = () => {
+    setIsProcessing(false)
+    onClose()
+  }
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 animate-fadeIn">
       <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md border border-blue-600">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-white">Select Payment Method</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white text-xl">
+          <button onClick={handleClose} className="text-gray-400 hover:text-white text-xl">
             ×
           </button>
         </div>

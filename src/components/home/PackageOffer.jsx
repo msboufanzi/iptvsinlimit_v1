@@ -14,12 +14,14 @@ const offersText = ({ text, isVip }) => {
   )
 }
 
-const PackageOffer = ({ nbr_month, plan, prix, isVip, titel, openPaymentPopup }) => {
+const PackageOffer = ({ nbr_month, plan, prix, isVip, titel, openPaymentPopup, description }) => {
   const handleBuyNow = () => {
     openPaymentPopup({
       title: titel,
       price: prix,
       months: nbr_month.toString(),
+      plan: plan,
+      description: description,
     })
   }
 
@@ -35,12 +37,12 @@ const PackageOffer = ({ nbr_month, plan, prix, isVip, titel, openPaymentPopup })
         <p className="pt-12"></p> // Empty <p> tag if not VIP
       )}
 
-      <h1 className="text-3xl font-bold text-blue-600">
-        {nbr_month} {nbr_month === 1 ? "MONTH" : "MONTHS"}
+      <h1 className={`text-3xl font-bold ${isVip === 1 ? "text-white" : "text-blue-600"}`}>
+        {nbr_month === "test" ? "24 HOURS" : `${nbr_month} ${nbr_month === 1 ? "MONTH" : "MONTHS"}`}
       </h1>
-      <h2 className="text-blue-600 text-2xl">{plan}</h2>
-      <h1 className={`font-bold text-7xl ${isVip === 0 ? "text-blue-600" : "text-white"}`}>{prix}</h1>
-      <h3 className="text-2xl">FAST & STABLE</h3>
+      <h2 className={`text-2xl ${isVip === 1 ? "text-white" : "text-blue-600"}`}>{plan}</h2>
+      <h1 className={`font-bold text-7xl ${isVip === 1 ? "text-white" : "text-blue-600"}`}>{prix}</h1>
+      <h3 className={`text-2xl ${isVip === 1 ? "text-white" : "text-gray-700"}`}>{description || "FAST & STABLE"}</h3>
       <button
         onClick={handleBuyNow}
         className={`rounded-[10px] pt-5 pb-5 pl-5 pr-5 mb-6 w-full ${

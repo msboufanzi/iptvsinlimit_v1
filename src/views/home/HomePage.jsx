@@ -28,6 +28,8 @@ const HomePage = () => {
   const [isPaypalPopupOpen, setIsPaypalPopupOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [paymentStatus, setPaymentStatus] = useState(null)
+  // Add isProcessing state to track loading state
+  const [isProcessing, setIsProcessing] = useState(false)
 
   // Check for payment status in URL on component mount
   useEffect(() => {
@@ -44,6 +46,11 @@ const HomePage = () => {
         message: "Payment successful! Thank you for your purchase.",
       })
 
+      // Make sure popups are closed
+      setIsPaymentPopupOpen(false)
+      setIsPaypalPopupOpen(false)
+      setIsProcessing(false)
+
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname)
     } else if (canceled) {
@@ -52,6 +59,11 @@ const HomePage = () => {
         success: false,
         message: "Payment was canceled. No charges were made.",
       })
+
+      // Make sure popups are closed
+      setIsPaymentPopupOpen(false)
+      setIsPaypalPopupOpen(false)
+      setIsProcessing(false)
 
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname)
@@ -81,6 +93,9 @@ const HomePage = () => {
       // Close the payment method selection popup and open PayPal popup
       setIsPaymentPopupOpen(false)
       setIsPaypalPopupOpen(true)
+    } else if (method === "stripe") {
+      // Set processing state for Stripe
+      setIsProcessing(true)
     }
     // Stripe is handled directly in the PaymentPopup component
   }
