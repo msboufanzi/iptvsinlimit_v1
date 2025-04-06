@@ -58,14 +58,14 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 mt-4">
               <a
-                href="https://wa.me/YOUR_WHATSAPP_NUMBER"
+                href="https://wa.me/21261431448"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-green-500 hover:text-green-700"
               >
                 <FaWhatsapp size={24} />
               </a>
-              <a href="mailto:info@example.com" className="text-gray-300 hover:text-gray-400">
+              <a href="mailto:ageniusfromdrouba@gmail.com" className="text-gray-300 hover:text-gray-400">
                 <MdEmail size={24} />
               </a>
             </div>

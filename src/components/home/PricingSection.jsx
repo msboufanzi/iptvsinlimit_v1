@@ -13,7 +13,7 @@ const PricingSection = ({ openPaymentPopup }) => {
     e.preventDefault()
 
     const result = await saveEmail(email, "pricing-section")
-    
+
     setEmailStatus(result)
 
     if (result.success) {
@@ -43,16 +43,6 @@ const PricingSection = ({ openPaymentPopup }) => {
 
       {/* Package Offers */}
       <div className="flex flex-col sm:flex-row items-center justify-center px-4 sm:px-6 mt-5 mb-9 gap-3 flex-wrap">
-        {/* Test Package */}
-        <PackageOffer
-          nbr_month="test"
-          plan={"Test Plan"}
-          prix={"€1.00"}
-          isVip={0}
-          titel={"Test IPTV – 24 Hours Access"}
-          openPaymentPopup={openPaymentPopup}
-          description="Try our service for 24 hours"
-        />
         <PackageOffer
           nbr_month={1}
           plan={"Basic Plan"}
@@ -126,7 +116,7 @@ const PricingSection = ({ openPaymentPopup }) => {
       {/* WhatsApp Contact Button */}
       <div className="flex justify-center mt-10">
         <button
-          onClick={() => window.open("https://wa.me/34649324985", "_blank")}
+          onClick={() => window.open("https://wa.me/212681431448", "_blank")}
           className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition-colors"
         >
           <IoLogoWhatsapp className="text-2xl" />
@@ -138,3 +128,4 @@ const PricingSection = ({ openPaymentPopup }) => {
 }
 
 export default PricingSection
+

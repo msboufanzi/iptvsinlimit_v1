@@ -2,10 +2,16 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { FaTimesCircle } from "react-icons/fa"
+import { IoLogoWhatsapp } from "react-icons/io"
 
 const PaymentFailed = () => {
   const [countdown, setCountdown] = useState(5)
   const navigate = useNavigate()
+
+  const handleWhatsAppContact = () => {
+    const message = encodeURIComponent("I had an issue with my payment. Can you help me complete my purchase?")
+    window.location.href = `https://wa.me/212681431448?text=${message}`
+  }
 
   useEffect(() => {
     // Check if this is a redirect from Stripe
@@ -49,10 +55,11 @@ const PaymentFailed = () => {
             Return to Home
           </button>
           <button
-            onClick={() => navigate("/#pricing-section")}
-            className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg transition-colors"
+            onClick={handleWhatsAppContact}
+            className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
           >
-            Try Again
+            <IoLogoWhatsapp className="text-xl" />
+            Contact Support
           </button>
         </div>
       </div>

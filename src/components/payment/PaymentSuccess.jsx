@@ -18,12 +18,14 @@ const PaymentSuccess = () => {
       return
     }
 
-    // Start countdown to redirect
+    // Start countdown to redirect to WhatsApp
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(timer)
-          navigate("/")
+          // Redirect to WhatsApp with a thank you message
+          const message = encodeURIComponent("Thank you for your purchase! I'd like to get my IPTV login details.")
+          window.location.href = `https://wa.me/212681431448?text=${message}`
           return 0
         }
         return prev - 1
@@ -39,8 +41,8 @@ const PaymentSuccess = () => {
         <FaCheckCircle className="text-green-500 text-6xl mx-auto mb-6" />
         <h1 className="text-3xl font-bold mb-4">Payment Successful!</h1>
         <p className="text-lg mb-6">Thank you for your purchase. Your IPTV subscription has been activated.</p>
-        <p className="text-gray-400 mb-8">You will receive your login details via email shortly.</p>
-        <p className="text-sm text-gray-500">Redirecting to home page in {countdown} seconds...</p>
+        <p className="text-gray-400 mb-8">You will be redirected to WhatsApp to receive your login details.</p>
+        <p className="text-sm text-gray-500">Redirecting to WhatsApp in {countdown} seconds...</p>
         <button
           onClick={() => navigate("/")}
           className="mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg transition-colors"

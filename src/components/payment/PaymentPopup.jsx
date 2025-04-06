@@ -18,7 +18,6 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
 
   // Stripe payment links for different subscription plans
   const stripeLinks = {
-    test: "https://buy.stripe.com/00g7vi9Ilebxf9mdQY", // Test - €1.00 EUR
     1: "https://buy.stripe.com/6oE4j6cUxd7tf9m7sw", // 1 Month - €12.99 EUR
     3: "https://buy.stripe.com/14k9Dq3jXd7t7GU7sx", // 3 Months - €39.99 EUR
     6: "https://buy.stripe.com/aEUeXK07L0kHgdq7sy", // 6 Months - €49.99 EUR
@@ -27,7 +26,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
 
   const handleStripePayment = () => {
     setIsProcessing(true)
-    
+
     // Notify parent component about processing state
     onPaymentSelect("stripe")
 
@@ -37,8 +36,8 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
 
     if (stripeLink) {
       // Store processing state in sessionStorage before redirect
-      sessionStorage.setItem('paymentProcessing', 'true')
-      
+      sessionStorage.setItem("paymentProcessing", "true")
+
       // Add a return URL parameter to redirect back to the site after payment
       const returnUrl = encodeURIComponent(window.location.origin + "/payment/success?success=true")
       const cancelUrl = encodeURIComponent(window.location.origin + "/payment/failed?canceled=true")
@@ -54,8 +53,8 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
 
   const handlePaypalPayment = () => {
     // Store processing state in sessionStorage before redirect
-    sessionStorage.setItem('paymentProcessing', 'true')
-    
+    sessionStorage.setItem("paymentProcessing", "true")
+
     setIsProcessing(true)
     onPaymentSelect("paypal")
   }
@@ -67,7 +66,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
   // Add a clean close function that resets processing state
   const handleClose = () => {
     setIsProcessing(false)
-    sessionStorage.removeItem('paymentProcessing')
+    sessionStorage.removeItem("paymentProcessing")
     onClose()
   }
 
@@ -153,3 +152,4 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
 }
 
 export default PaymentPopup
+
