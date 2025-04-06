@@ -74,7 +74,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 animate-fadeIn">
       <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md border border-blue-600">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Select Payment Method</h2>
+          <h2 className="text-2xl font-bold text-white">Seleccionar Método de Pago</h2>
           <button onClick={handleClose} className="text-gray-400 hover:text-white text-xl">
             ×
           </button>
@@ -82,7 +82,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
 
         {product && (
           <div className="mb-6 p-4 bg-gray-800 rounded-lg">
-            <h3 className="text-white font-bold">{product.title || "IPTV Subscription"}</h3>
+            <h3 className="text-white font-bold">{product.title || "Suscripción IPTV"}</h3>
             <p className="text-blue-400 text-xl">{product.price || "$0.00"}</p>
           </div>
         )}
@@ -108,12 +108,12 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   ></path>
                 </svg>
-                Processing...
+                Procesando...
               </span>
             ) : (
               <>
                 <FaStripe className="text-2xl" />
-                Pay with Stripe
+                Pagar con Stripe
               </>
             )}
           </button>
@@ -124,7 +124,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
             className="w-full bg-[#0070ba] hover:bg-[#005ea6] text-white py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-colors disabled:opacity-50"
           >
             <SiPaypal className="text-2xl" />
-            Pay with PayPal
+            Pagar con PayPal
           </button>
 
           <button
@@ -132,12 +132,12 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
             className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-colors"
           >
             <IoLogoWhatsapp className="text-2xl" />
-            Contact via WhatsApp
+            Contactar por WhatsApp
           </button>
         </div>
 
         <div className="mt-6 text-center">
-          <p className="text-gray-400 text-sm">Secure payment processing</p>
+          <p className="text-gray-400 text-sm">Procesamiento de pago seguro</p>
           <div className="flex justify-center mt-2 space-x-2">
             <img src="/visa.svg" alt="Visa" className="h-6" />
             <img src="/mastercard.svg" alt="Mastercard" className="h-6" />
@@ -145,7 +145,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
           </div>
         </div>
 
-        <p className="text-gray-400 text-sm mt-4 text-center">For assistance, contact us at +34 649 324 985</p>
+        <p className="text-gray-400 text-sm mt-4 text-center">Para asistencia, contáctanos al +34 649 324 985</p>
       </div>
     </div>
   )

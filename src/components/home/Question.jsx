@@ -40,46 +40,47 @@ const Question = () => {
   return (
     <div className="mr-0 py-16" id="faq-section">
       <div className="ml-5 sm:ml-36 flex items-start justify-start gap-3 mt-10 text-blue-600">
-        <div className="text-xl">QUESTIONS / ANSWERS</div>
+        <div className="text-xl">PREGUNTAS / RESPUESTAS</div>
         <div className="bg-blue-600 w-20 h-0.5 mt-4"></div>
       </div>
       <div className="flex flex-col sm:flex-row items-center justify-center text-white text-5xl font-bold gap-3 pt-16">
-        <h1>Frequently Asked</h1>
-        <h1 className="bg-blue-600 p-3 rounded-[15px]">Questions</h1>
+        <h1>Preguntas</h1>
+        <h1 className="bg-blue-600 p-3 rounded-[15px]">Frecuentes</h1>
       </div>
       <div className="sm:mr-48 sm:ml-48 mt-16">
         {Container({
-          question: "Are there any additional fees?",
-          reponse: "All prices are included in your subscription, with no hidden fees.",
+          question: "¿Hay algún cargo adicional?",
+          reponse: "Todos los precios están incluidos en tu suscripción, sin cargos ocultos.",
         })}
         {Container({
-          question: "What internet speed do I need for IPTV?",
+          question: "¿Qué velocidad de internet necesito para IPTV?",
           reponse:
-            "A minimum internet speed of 10Mbps is recommended for the standard streaming but if you want to stream 4K content then you will need 25 Mbps internet speed.",
+            "Se recomienda una velocidad mínima de internet de 10Mbps para la transmisión estándar, pero si deseas transmitir contenido en 4K, necesitarás una velocidad de internet de 25 Mbps.",
         })}
         {Container({
-          question: "How many devices can I use at once with my subscription?",
+          question: "¿Cuántos dispositivos puedo usar a la vez con mi suscripción?",
           reponse:
-            "The standard subscription at StreamTVUniverse allows you to watch on up to 1 device simultaneously. For more IPTV Connections, please check our Multiple Connections Service on the Pricing page or contact us via WhatsApp for premium plans available.",
+            "La suscripción estándar en StreamTVUniverse te permite ver en hasta 1 dispositivo simultáneamente. Para más conexiones IPTV, consulta nuestro Servicio de Conexiones Múltiples en la página de Precios o contáctanos por WhatsApp para planes premium disponibles.",
         })}
         {Container({
-          question: "What devices can I use for IPTV?",
+          question: "¿Qué dispositivos puedo usar para IPTV?",
           reponse:
-            "Our IPTV service is compatible with Smart TVs, streaming devices (Amazon Firestick, Roku, Apple TV), computers, tablets, Android, smartphones and more...",
+            "Nuestro servicio IPTV es compatible con Smart TVs, dispositivos de streaming (Amazon Firestick, Roku, Apple TV), computadoras, tablets, Android, smartphones y más...",
         })}
         {Container({
-          question: "Can I use a VPN with your IPTV service?",
-          reponse: "Yes, you can utilize a VPN with the IPTV service we provide here for added privacy and security. ",
-        })}
-        {Container({
-          question: "Where can I watch IPTV Service?",
+          question: "¿Puedo usar una VPN con su servicio IPTV?",
           reponse:
-            "You can Enjoy our IPTV Subscription Service in the USA, UK, Australia, Canada, France, Belgium, Switzerland, Spain, Portugal, Italy, Germany, the Netherlands, Arabic regions, Latin America, Turkey, and more.",
+            "Sí, puedes utilizar una VPN con el servicio IPTV que proporcionamos para mayor privacidad y seguridad.",
         })}
         {Container({
-          question: "Can I cancel my subscription at any time?",
+          question: "¿Dónde puedo ver el Servicio IPTV?",
           reponse:
-            "Yes, you can easily cancel the subscription plan at any time without any further cancellation fees. Simply follow the cancellation directions on the website or contact the support team for help.",
+            "Puedes disfrutar de nuestro Servicio de Suscripción IPTV en EE.UU., Reino Unido, Australia, Canadá, Francia, Bélgica, Suiza, España, Portugal, Italia, Alemania, Países Bajos, regiones árabes, América Latina, Turquía y más.",
+        })}
+        {Container({
+          question: "¿Puedo cancelar mi suscripción en cualquier momento?",
+          reponse:
+            "Sí, puedes cancelar fácilmente el plan de suscripción en cualquier momento sin ningún cargo adicional por cancelación. Simplemente sigue las instrucciones de cancelación en el sitio web o contacta al equipo de soporte para obtener ayuda.",
         })}
       </div>
     </div>

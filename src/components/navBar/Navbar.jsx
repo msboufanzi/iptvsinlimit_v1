@@ -53,19 +53,19 @@ const Navbar = ({ scrollToPricing, scrollToServices, scrollToHowItWorks, scrollT
         {/* Navigation Links */}
         <div className="hidden sm:flex items-center space-x-5 md:space-x-8 lg:space-x-10 font-bold text-white">
           <button onClick={scrollToPricing} className="hover:text-gray-300">
-            Plans & Pricing
+            Planes y Precios
           </button>
           <button onClick={scrollToServices} className="hover:text-gray-300">
-            Services
+            Servicios
           </button>
           <button onClick={scrollToHowItWorks} className="hover:text-gray-300">
-            How It Works
+            Cómo Funciona
           </button>
           <button onClick={scrollToFaq} className="hover:text-gray-300">
-            FAQ
+            Preguntas Frecuentes
           </button>
           <button onClick={scrollToContact} className="hover:text-orange-500">
-            Contact us
+            Contáctanos
           </button>
         </div>
 
@@ -75,7 +75,7 @@ const Navbar = ({ scrollToPricing, scrollToServices, scrollToHowItWorks, scrollT
             onClick={handleGetStarted}
             className="bg-blue-500 text-white px-8 py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200"
           >
-            Get Started
+            Comenzar Ahora
           </button>
         </div>
       </div>
@@ -90,7 +90,7 @@ const Navbar = ({ scrollToPricing, scrollToServices, scrollToHowItWorks, scrollT
             }}
             className="p-2 text-white hover:text-blue-600"
           >
-            Plans & Pricing
+            Planes y Precios
           </button>
           <hr className="border-gray-800 my-0" />
 
@@ -101,7 +101,7 @@ const Navbar = ({ scrollToPricing, scrollToServices, scrollToHowItWorks, scrollT
             }}
             className="p-2 text-white hover:text-blue-600"
           >
-            Services
+            Servicios
           </button>
           <hr className="border-gray-800 my-0" />
 
@@ -112,7 +112,7 @@ const Navbar = ({ scrollToPricing, scrollToServices, scrollToHowItWorks, scrollT
             }}
             className="p-2 text-white hover:text-blue-600"
           >
-            How It Works
+            Cómo Funciona
           </button>
           <hr className="border-gray-800 my-0" />
 
@@ -123,7 +123,7 @@ const Navbar = ({ scrollToPricing, scrollToServices, scrollToHowItWorks, scrollT
             }}
             className="p-2 text-white hover:text-blue-600"
           >
-            FAQ
+            Preguntas Frecuentes
           </button>
           <hr className="border-gray-800 my-0" />
 
@@ -134,7 +134,7 @@ const Navbar = ({ scrollToPricing, scrollToServices, scrollToHowItWorks, scrollT
             }}
             className="p-2 text-white hover:text-blue-600"
           >
-            Contact us
+            Contáctanos
           </button>
           <hr className="border-gray-800 my-0" />
 
@@ -145,7 +145,7 @@ const Navbar = ({ scrollToPricing, scrollToServices, scrollToHowItWorks, scrollT
             }}
             className="p-2 text-blue-600 font-bold"
           >
-            Get Started
+            Comenzar Ahora
           </button>
         </div>
       )}

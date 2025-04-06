@@ -11,12 +11,12 @@ const Hero = ({ scrollToPricing }) => {
       <div className="relative z-10 flex flex-col justify-center items-center text-white gap-4 sm:gap-8 h-full pt-20">
         <div className="text-center max-w-2xl">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            The Best IPTV
+            El Mejor Servicio
             <div className="flex gap-5 justify-center">
-              <div>Subscription</div>
-              <div className="block text-blue-600">Service</div>
+              <div>de Suscripción</div>
+              <div className="block text-blue-600">IPTV</div>
             </div>
-            Provider
+            Disponible
           </h1>
         </div>
 
@@ -24,7 +24,7 @@ const Hero = ({ scrollToPricing }) => {
           {/* Left Line */}
           <div className="w-16 sm:w-20 md:w-24 h-[2px] bg-blue-500 mt-2"></div>
 
-          <div>TV Sin Limites</div>
+          <div>TV Sin Límites</div>
 
           {/* Right Line */}
           <div className="w-16 sm:w-20 md:w-24 h-[2px] bg-blue-500 mt-2"></div>
@@ -32,9 +32,9 @@ const Hero = ({ scrollToPricing }) => {
 
         <div className="text-center max-w-2xl text-base mr-8 ml-8">
           <p className="leading-relaxed">
-            At StreamTVUniverse, We offer the best IPTV subscription service, providing access to over 22,000 TV
-            channels and 150,000 VODs in 4K, FHD, and HD. Our service is accessible from any device and any location,
-            all at great prices!
+            En StreamTVUniverse, ofrecemos el mejor servicio de suscripción IPTV, proporcionando acceso a más de 22,000
+            canales de TV y 150,000 VODs en 4K, FHD y HD. ¡Nuestro servicio es accesible desde cualquier dispositivo y
+            ubicación, todo a precios increíbles!
           </p>
         </div>
 
@@ -44,7 +44,7 @@ const Hero = ({ scrollToPricing }) => {
             className="bg-blue-500 text-white border-black px-10 py-5 rounded-[10px]
               hover:bg-blue-600 transition-all duration-300 flex items-center transform hover:scale-105"
           >
-            SUBSCRIBE NOW
+            SUSCRÍBETE AHORA
             <GrFormNextLink className="ml-3 text-2xl" />
           </button>
         </div>
@@ -54,3 +54,4 @@ const Hero = ({ scrollToPricing }) => {
 }
 
 export default Hero
+

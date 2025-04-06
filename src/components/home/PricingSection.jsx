@@ -31,13 +31,14 @@ const PricingSection = ({ openPaymentPopup }) => {
     <div className="py-16" id="pricing-section">
       <div className="text-white flex flex-col items-center justify-center py-3 mt-8 gap-6">
         <div className="flex text-xl sm:text-4xl font-bold gap-3 flex-wrap justify-center text-center px-4">
-          <h1 className="mt-3">Choose the Perfect Plan For</h1>
+          <h1 className="mt-3">Elige el Plan Perfecto Para</h1>
           <h1>
-            <div className="bloc bg-blue-600 py-3 px-3 rounded-[10px]">You!</div>
+            <div className="bloc bg-blue-600 py-3 px-3 rounded-[10px]">Ti!</div>
           </h1>
         </div>
         <p className="font-serif text-center px-6 max-w-3xl">
-          Select your Premium IPTV Subscription Plan and Unlock a Universe of Spanish and International Entertainment.
+          Selecciona tu Plan de Suscripción IPTV Premium y Desbloquea un Universo de Entretenimiento Español e
+          Internacional.
         </p>
       </div>
 
@@ -45,53 +46,53 @@ const PricingSection = ({ openPaymentPopup }) => {
       <div className="flex flex-col sm:flex-row items-center justify-center px-4 sm:px-6 mt-5 mb-9 gap-3 flex-wrap">
         <PackageOffer
           nbr_month={1}
-          plan={"Basic Plan"}
+          plan={"Plan Básico"}
           prix={"€12.99"}
           isVip={0}
-          titel={"Premium IPTV – 1 Month Subscription"}
+          titel={"IPTV Premium – Suscripción de 1 Mes"}
           openPaymentPopup={openPaymentPopup}
-          description="Full access for 1 month"
+          description="Acceso completo por 1 mes"
         />
         <PackageOffer
           nbr_month={3}
-          plan={"Standard Plan"}
+          plan={"Plan Estándar"}
           prix={"€39.99"}
           isVip={0}
-          titel={"Premium IPTV – 3 Months Subscription"}
+          titel={"IPTV Premium – Suscripción de 3 Meses"}
           openPaymentPopup={openPaymentPopup}
-          description="Full access for 3 months"
+          description="Acceso completo por 3 meses"
         />
         <PackageOffer
           nbr_month={6}
-          plan={"Premium Plan"}
+          plan={"Plan Premium"}
           prix={"€49.99"}
           isVip={0}
-          titel={"Premium IPTV – 6 Months Subscription"}
+          titel={"IPTV Premium – Suscripción de 6 Meses"}
           openPaymentPopup={openPaymentPopup}
-          description="Full access for 6 months"
+          description="Acceso completo por 6 meses"
         />
         <PackageOffer
           nbr_month={12}
-          plan={"Luxury Plan"}
+          plan={"Plan Lujo"}
           prix={"€69.99"}
           isVip={1}
-          titel={"Luxury Plan – 12 Months Subscription"}
+          titel={"Plan Lujo – Suscripción de 12 Meses"}
           openPaymentPopup={openPaymentPopup}
-          description="Full access for 12 months"
+          description="Acceso completo por 12 meses"
         />
       </div>
 
       {/* Custom Service Section */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-8 px-4 sm:px-0">
         <div className="flex flex-col sm:flex-row text-5xl sm:text-6xl font-bold gap-2 text-white text-center">
-          <div>Need a</div>
-          <div className="bg-blue-600 p-3 text-center rounded-[10px]">Special Plan?</div>
+          <div>¿Necesitas un</div>
+          <div className="bg-blue-600 p-3 text-center rounded-[10px]">Plan Especial?</div>
         </div>
         <div className="flex flex-col gap-3 w-full sm:w-1/3 p-2 font-titel">
           <form onSubmit={handleEmailSubmit}>
             <input
               type="email"
-              placeholder="Your email address..."
+              placeholder="Tu dirección de correo..."
               className="pt-5 pb-5 pr-4 pl-4 rounded-[8px] w-full text-black"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -101,13 +102,13 @@ const PricingSection = ({ openPaymentPopup }) => {
               type="submit"
               className="bg-blue-800 pt-4 pb-4 pr-4 pl-4 rounded-[8px] text-white text-2xl w-full mt-3 hover:bg-blue-700 transition-colors"
             >
-              Send
+              Enviar
             </button>
           </form>
 
           {emailStatus && (
             <div className={`mt-2 text-sm ${emailStatus.success ? "text-green-500" : "text-red-500"}`}>
-              {emailStatus.message}
+              {emailStatus.success ? "¡Gracias por suscribirte!" : "Error al enviar. Inténtalo de nuevo."}
             </div>
           )}
         </div>
@@ -120,7 +121,7 @@ const PricingSection = ({ openPaymentPopup }) => {
           className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition-colors"
         >
           <IoLogoWhatsapp className="text-2xl" />
-          Contact via WhatsApp for Customized Plans
+          Contacta por WhatsApp para Planes Personalizados
         </button>
       </div>
     </div>
