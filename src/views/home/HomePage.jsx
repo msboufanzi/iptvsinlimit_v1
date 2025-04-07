@@ -198,6 +198,21 @@ const HomePage = () => {
           <ServiceSection openPaymentPopup={openPaymentPopup} />
         </div>
 
+        {/* Bizum Information Section */}
+        <div className="bg-gray-800 text-white py-4 px-6 text-center">
+          <p>
+            ¿Sabías que también aceptamos pagos a través de <strong>Bizum</strong>? 
+            <a
+              href="https://wa.me/212681431448?text=Hola, estoy interesado en pagar a través de Bizum."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 underline hover:text-blue-300"
+            >
+              Contáctanos en <strong>WhatsApp</strong>
+            </a> para más información.
+          </p>
+        </div>
+
         {/* Why Choose Us Section */}
         <WhyChoseUs />
 
