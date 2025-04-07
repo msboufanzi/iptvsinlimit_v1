@@ -53,8 +53,8 @@ const Footer = () => {
           <div>
             <img src={logo || "/placeholder.svg"} alt="Logo" className="h-12 mb-4" />
             <p className="text-sm">
-              Your trusted partner in innovative solutions. We provide cutting-edge technology and services to help your
-              business thrive.
+              Su socio de confianza en soluciones innovadoras. Proporcionamos tecnología y servicios de vanguardia para
+              ayudar a su negocio a prosperar.
             </p>
             <div className="flex space-x-4 mt-4">
               <a
@@ -74,29 +74,29 @@ const Footer = () => {
           {/* Second Column - Company */}
           <div>
             <div className="flex justify-between items-center mb-2 md:hidden" onClick={toggleCompany}>
-              <h3 className="text-lg font-semibold">Company</h3>
+              <h3 className="text-lg font-semibold">Empresa</h3>
               {isCompanyOpen ? <GoChevronDown /> : <GoChevronRight />}
             </div>
-            <h3 className="text-lg font-semibold hidden md:block">Company</h3>
+            <h3 className="text-lg font-semibold hidden md:block">Empresa</h3>
             <ul className={`mt-2 space-y-1 ${isCompanyOpen ? "" : "hidden md:block"}`}>
               <li>
                 <a href="#" className="hover:text-gray-300 text-sm">
-                  About Us
+                  Sobre Nosotros
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300 text-sm">
-                  Our Mission
+                  Nuestra Misión
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300 text-sm">
-                  Careers
+                  Carreras
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300 text-sm">
-                  Contact
+                  Contacto
                 </a>
               </li>
             </ul>
@@ -105,10 +105,10 @@ const Footer = () => {
           {/* Third Column - Resources */}
           <div>
             <div className="flex justify-between items-center mb-2 md:hidden" onClick={toggleResources}>
-              <h3 className="text-lg font-semibold">Resources</h3>
+              <h3 className="text-lg font-semibold">Recursos</h3>
               {isResourcesOpen ? <GoChevronDown /> : <GoChevronRight />}
             </div>
-            <h3 className="text-lg font-semibold hidden md:block">Resources</h3>
+            <h3 className="text-lg font-semibold hidden md:block">Recursos</h3>
             <ul className={`mt-2 space-y-1 ${isResourcesOpen ? "" : "hidden md:block"}`}>
               <li>
                 <a href="#" className="hover:text-gray-300 text-sm">
@@ -117,17 +117,17 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300 text-sm">
-                  Support
+                  Soporte
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300 text-sm">
-                  Terms of Service
+                  Términos de Servicio
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300 text-sm">
-                  Privacy Policy
+                  Política de Privacidad
                 </a>
               </li>
             </ul>
@@ -135,18 +135,20 @@ const Footer = () => {
 
           {/* Fourth Column - Newsletter */}
           <div>
-            <h3 className="text-lg font-semibold">Newsletter</h3>
-            <p className="text-sm mt-2">Subscribe to our newsletter to stay updated on the latest news and offers.</p>
+            <h3 className="text-lg font-semibold">Boletín Informativo</h3>
+            <p className="text-sm mt-2">
+              Suscríbase a nuestro boletín para mantenerse actualizado sobre las últimas noticias y ofertas.
+            </p>
             <form className="mt-4" onSubmit={handleEmailSubscribe}>
               <input
                 type="email"
-                placeholder="Your Email"
+                placeholder="Su Correo Electrónico"
                 className="bg-gray-700 text-white px-4 py-2 rounded-l focus:outline-none text-sm w-full md:w-auto"
                 value={email}
                 onChange={handleEmailChange}
               />
               <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-r text-sm">
-                Subscribe
+                Suscribirse
               </button>
             </form>
             {subscriptionStatus && (
@@ -159,7 +161,7 @@ const Footer = () => {
 
         {/* Bottom Line */}
         <div className="border-t border-gray-700 mt-8 pt-4 text-center text-sm">
-          &copy; {new Date().getFullYear()} All rights reserved.
+          &copy; {new Date().getFullYear()} Todos los derechos reservados.
         </div>
       </div>
     </footer>
