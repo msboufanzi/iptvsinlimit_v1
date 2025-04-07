@@ -1,48 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* Add these performance optimizations to your existing CSS */
+
+/* Performance optimizations */
 
 /* Optimize rendering on mobile */
 @media (max-width: 768px) {
-    /* Reduce animation complexity on mobile */
-    .animate-fadeIn {
-      animation-duration: 0.3s;
-    }
-  
-    /* Optimize background images */
-    [style*="background-image"] {
-      background-attachment: scroll !important;
-    }
-  
-    /* Improve scrolling performance */
-    body {
-      -webkit-overflow-scrolling: touch;
-      overflow-x: hidden;
-    }
-  
-    /* Reduce layout shifts */
-    img,
-    button,
-    .card {
-      content-visibility: auto;
-    }
+  /* Reduce animation complexity on mobile */
+  .animate-fadeIn {
+    animation-duration: 0.3s;
   }
-  
-  /* Fix for payment popup on mobile */
-  .fixed.inset-0 {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 50;
+
+  /* Optimize background images */
+  [style*="background-image"] {
+    background-attachment: scroll !important;
   }
-  
-  /* Ensure buttons are properly sized on mobile */
-  button {
-    touch-action: manipulation;
+
+  /* Improve scrolling performance */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
   }
-  
-  
+
+  /* Reduce layout shifts */
+  img,
+  button,
+  .card {
+    content-visibility: auto;
+  }
+}
+
+/* Fix for payment popup on mobile */
+.fixed.inset-0 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+}
+
+/* Ensure buttons are properly sized on mobile */
+button {
+  touch-action: manipulation;
+}
+
+/* Add font display swap for better performance */
+@font-face {
+  font-family: "Oswald";
+  font-display: swap;
+}
+
+/* Optimize image rendering */
+img {
+  image-rendering: auto;
+}
+
+/* Prevent content jumping during image load */
+img:not([src]) {
+  visibility: hidden;
+}
+

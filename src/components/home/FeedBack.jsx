@@ -36,6 +36,11 @@ const FeedBack = ({ with_back }) => {
     }
   }
 
+  // Placeholder for images that haven't loaded yet
+  const ImagePlaceholder = () => (
+    <div className="w-full h-full bg-gray-800 animate-pulse rounded-lg" style={{ minHeight: "300px" }}></div>
+  )
+
   return (
     <div className="mt-20 ms:mt-10 pr-4 pb-10">
       <div
@@ -49,13 +54,13 @@ const FeedBack = ({ with_back }) => {
 
         <div className="relative z-10">
           <div className="flex flex-col sm:flex-row items-center justify-center text-white text-5xl font-bold gap-3 pt-32">
-            <h1>What they say</h1>
-            <h1 className="bg-blue-600 p-3 rounded-[15px]">about us</h1>
+            <h1>Lo que dicen</h1>
+            <h1 className="bg-blue-600 p-3 rounded-[15px]">sobre nosotros</h1>
           </div>
 
           <div className="flex items-center justify-center gap-3 mt-10">
             <div className="bg-white w-16 h-0.5"></div>
-            <div className="text-xl text-white">Customer Feedback</div>
+            <div className="text-xl text-white">Opiniones de Clientes</div>
             <div className="bg-white w-16 h-0.5"></div>
           </div>
 
@@ -107,15 +112,19 @@ const FeedBack = ({ with_back }) => {
                     <div className="w-[45%]">
                       <img
                         src={images[0] || "/placeholder.svg"}
-                        alt="Customer Feedback 1"
+                        alt="Opinión de Cliente 1"
                         className="w-full rounded-lg shadow-lg"
+                        loading="lazy"
+                        data-src={images[0] || "/placeholder.svg"}
                       />
                     </div>
                     <div className="w-[45%]">
                       <img
                         src={images[1] || "/placeholder.svg"}
-                        alt="Customer Feedback 2"
+                        alt="Opinión de Cliente 2"
                         className="w-full rounded-lg shadow-lg"
+                        loading="lazy"
+                        data-src={images[1] || "/placeholder.svg"}
                       />
                     </div>
                   </div>
@@ -125,15 +134,19 @@ const FeedBack = ({ with_back }) => {
                     <div className="w-[45%]">
                       <img
                         src={images[2] || "/placeholder.svg"}
-                        alt="Customer Feedback 3"
+                        alt="Opinión de Cliente 3"
                         className="w-full rounded-lg shadow-lg"
+                        loading="lazy"
+                        data-src={images[2] || "/placeholder.svg"}
                       />
                     </div>
                     <div className="w-[45%]">
                       <img
                         src={images[3] || "/placeholder.svg"}
-                        alt="Customer Feedback 4"
+                        alt="Opinión de Cliente 4"
                         className="w-full rounded-lg shadow-lg"
+                        loading="lazy"
+                        data-src={images[3] || "/placeholder.svg"}
                       />
                     </div>
                   </div>
@@ -143,15 +156,19 @@ const FeedBack = ({ with_back }) => {
                     <div className="w-[45%]">
                       <img
                         src={images[4] || "/placeholder.svg"}
-                        alt="Customer Feedback 5"
+                        alt="Opinión de Cliente 5"
                         className="w-full rounded-lg shadow-lg"
+                        loading="lazy"
+                        data-src={images[4] || "/placeholder.svg"}
                       />
                     </div>
                     <div className="w-[45%]">
                       <img
                         src={images[5] || "/placeholder.svg"}
-                        alt="Customer Feedback 6"
+                        alt="Opinión de Cliente 6"
                         className="w-full rounded-lg shadow-lg"
+                        loading="lazy"
+                        data-src={images[5] || "/placeholder.svg"}
                       />
                     </div>
                   </div>
@@ -167,6 +184,7 @@ const FeedBack = ({ with_back }) => {
                       currentPage === pageIndex ? "bg-blue-600" : "bg-white bg-opacity-50"
                     }`}
                     onClick={() => setCurrentPage(pageIndex)}
+                    aria-label={`Go to page ${pageIndex + 1}`}
                   />
                 ))}
               </div>
@@ -179,11 +197,11 @@ const FeedBack = ({ with_back }) => {
                 onClick={handleGetDiscount}
                 className="bg-blue-600 rounded-[40px] p-3 text-white flex items-center justify-between hover:bg-blue-700 transition-colors"
               >
-                Last Chance: Get 70% OFF
+                Última Oportunidad: Obtén 70% de DESCUENTO
               </button>
             </div>
             <div>
-              <h1 className="text-white font italic text-[17px]">ONE TIME PAYMENT - Endless Entertainment!</h1>
+              <h1 className="text-white font italic text-[17px]">PAGO ÚNICO - ¡Entretenimiento Sin Fin!</h1>
             </div>
           </div>
         </div>

@@ -6035,28 +6035,6 @@ Currently, two official plugins are available:
 # iptvsinlimit_v1
 
 
---- /home/bashira/Desktop/MyApp/iptvsinlimit_v1/notes.txt ---
-<div>
-                <div className='relative group hidden sm:block'>
-                    <input
-                        type='text'
-                        placeholder='search'
-                        className="w-[200px] sm:w-[200px]
-                        group-hover:w-[300px] transition-all
-                        duration-300 rounded-full border
-                        border-gray-300 px-2 py-1
-                        focus:outline-none focus:border-1
-                        focus:border-primary
-                        "/>
-                    <IoMdSearch 
-                    className='text-gray-400 
-                    group-hover:text-primary absolute
-                    top-1/2 -translate-y-1/2 right-3'
-                    />
-
-                </div>
-            </div>
-
 --- /home/bashira/Desktop/MyApp/iptvsinlimit_v1/src/main.jsx ---
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
@@ -8413,6 +8391,21 @@ const HomePage = () => {
         {/* Services Section */}
         <div ref={servicesRef}>
           <ServiceSection openPaymentPopup={openPaymentPopup} />
+        </div>
+
+        {/* Bizum Information Section */}
+        <div className="bg-gray-800 text-white py-4 px-6 text-center">
+          <p>
+            ¿Sabías que también aceptamos pagos a través de <strong>Bizum</strong>? 
+            <a
+              href="https://wa.me/212681431448?text=Hola, estoy interesado en pagar a través de Bizum."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 underline hover:text-blue-300"
+            >
+              Contáctanos en <strong>WhatsApp</strong>
+            </a> para más información.
+          </p>
         </div>
 
         {/* Why Choose Us Section */}

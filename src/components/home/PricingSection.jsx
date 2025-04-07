@@ -1,31 +1,49 @@
 "use client"
 
-import { useState } from "react"
+import { useState, lazy, Suspense } from "react"
 import { IoLogoWhatsapp } from "react-icons/io"
-import PackageOffer from "./PackageOffer"
 import { saveEmail } from "../../utils/emailStorage"
+
+// Lazy load the PackageOffer component
+const PackageOffer = lazy(() => import("./PackageOffer"))
 
 const PricingSection = ({ openPaymentPopup }) => {
   const [email, setEmail] = useState("")
   const [emailStatus, setEmailStatus] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleEmailSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
 
-    const result = await saveEmail(email, "pricing-section")
+    try {
+      const result = await saveEmail(email, "pricing-section")
+      setEmailStatus(result)
 
-    setEmailStatus(result)
+      if (result.success) {
+        // Clear the form
+        setEmail("")
 
-    if (result.success) {
-      // Clear the form
-      setEmail("")
-
-      // Clear the status message after 3 seconds
-      setTimeout(() => {
-        setEmailStatus(null)
-      }, 3000)
+        // Clear the status message after 3 seconds
+        setTimeout(() => {
+          setEmailStatus(null)
+        }, 3000)
+      }
+    } catch (error) {
+      console.error("Error saving email:", error)
+      setEmailStatus({
+        success: false,
+        message: "Error al enviar. Inténtalo de nuevo.",
+      })
+    } finally {
+      setIsLoading(false)
     }
   }
+
+  // Placeholder component while PackageOffer is loading
+  const PackageOfferPlaceholder = () => (
+    <div className="bg-gray-800 rounded-[20px] w-full h-[500px] animate-pulse"></div>
+  )
 
   return (
     <div className="py-16" id="pricing-section">
@@ -44,42 +62,53 @@ const PricingSection = ({ openPaymentPopup }) => {
 
       {/* Package Offers */}
       <div className="flex flex-col sm:flex-row items-center justify-center px-4 sm:px-6 mt-5 mb-9 gap-3 flex-wrap">
-        <PackageOffer
-          nbr_month={1}
-          plan={"Plan Básico"}
-          prix={"€12.99"}
-          isVip={0}
-          titel={"IPTV Premium – Suscripción de 1 Mes"}
-          openPaymentPopup={openPaymentPopup}
-          description="Acceso completo por 1 mes"
-        />
-        <PackageOffer
-          nbr_month={3}
-          plan={"Plan Estándar"}
-          prix={"€39.99"}
-          isVip={0}
-          titel={"IPTV Premium – Suscripción de 3 Meses"}
-          openPaymentPopup={openPaymentPopup}
-          description="Acceso completo por 3 meses"
-        />
-        <PackageOffer
-          nbr_month={6}
-          plan={"Plan Premium"}
-          prix={"€49.99"}
-          isVip={0}
-          titel={"IPTV Premium – Suscripción de 6 Meses"}
-          openPaymentPopup={openPaymentPopup}
-          description="Acceso completo por 6 meses"
-        />
-        <PackageOffer
-          nbr_month={12}
-          plan={"Plan Lujo"}
-          prix={"€69.99"}
-          isVip={1}
-          titel={"Plan Lujo – Suscripción de 12 Meses"}
-          openPaymentPopup={openPaymentPopup}
-          description="Acceso completo por 12 meses"
-        />
+        <Suspense fallback={<PackageOfferPlaceholder />}>
+          <PackageOffer
+            nbr_month={1}
+            plan={"Plan Básico"}
+            prix={"€12.99"}
+            isVip={0}
+            titel={"IPTV Premium – Suscripción de 1 Mes"}
+            openPaymentPopup={openPaymentPopup}
+            description="Acceso completo por 1 mes"
+          />
+        </Suspense>
+
+        <Suspense fallback={<PackageOfferPlaceholder />}>
+          <PackageOffer
+            nbr_month={3}
+            plan={"Plan Estándar"}
+            prix={"€39.99"}
+            isVip={0}
+            titel={"IPTV Premium – Suscripción de 3 Meses"}
+            openPaymentPopup={openPaymentPopup}
+            description="Acceso completo por 3 meses"
+          />
+        </Suspense>
+
+        <Suspense fallback={<PackageOfferPlaceholder />}>
+          <PackageOffer
+            nbr_month={6}
+            plan={"Plan Premium"}
+            prix={"€49.99"}
+            isVip={0}
+            titel={"IPTV Premium – Suscripción de 6 Meses"}
+            openPaymentPopup={openPaymentPopup}
+            description="Acceso completo por 6 meses"
+          />
+        </Suspense>
+
+        <Suspense fallback={<PackageOfferPlaceholder />}>
+          <PackageOffer
+            nbr_month={12}
+            plan={"Plan Lujo"}
+            prix={"€69.99"}
+            isVip={1}
+            titel={"Plan Lujo – Suscripción de 12 Meses"}
+            openPaymentPopup={openPaymentPopup}
+            description="Acceso completo por 12 meses"
+          />
+        </Suspense>
       </div>
 
       {/* Custom Service Section */}
@@ -97,18 +126,46 @@ const PricingSection = ({ openPaymentPopup }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isLoading}
             />
             <button
               type="submit"
-              className="bg-blue-800 pt-4 pb-4 pr-4 pl-4 rounded-[8px] text-white text-2xl w-full mt-3 hover:bg-blue-700 transition-colors"
+              className="bg-blue-800 pt-4 pb-4 pr-4 pl-4 rounded-[8px] text-white text-2xl w-full mt-3 hover:bg-blue-700 transition-colors disabled:opacity-50"
+              disabled={isLoading}
             >
-              Enviar
+              {isLoading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg
+                    className="animate-spin h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Enviando...
+                </span>
+              ) : (
+                "Enviar"
+              )}
             </button>
           </form>
 
           {emailStatus && (
             <div className={`mt-2 text-sm ${emailStatus.success ? "text-green-500" : "text-red-500"}`}>
-              {emailStatus.success ? "¡Gracias por suscribirte!" : "Error al enviar. Inténtalo de nuevo."}
+              {emailStatus.message}
             </div>
           )}
         </div>

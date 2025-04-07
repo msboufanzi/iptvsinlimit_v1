@@ -1,4 +1,4 @@
-import movies from "../../assets/films.jpg"
+import { lazy, Suspense } from "react"
 import { FaChartPie } from "react-icons/fa"
 import { LuChartNetwork } from "react-icons/lu"
 import { HiPresentationChartLine } from "react-icons/hi"
@@ -7,6 +7,9 @@ import { TiWorld } from "react-icons/ti"
 import { MdSettingsSuggest } from "react-icons/md"
 import { IoIosTv } from "react-icons/io"
 import { MdMovie } from "react-icons/md"
+
+// Lazy load the background image
+const BackgroundImage = lazy(() => import("../../assets/films.jpg").then((module) => ({ default: module.default })))
 
 const service = ({ icon, text }) => {
   return (
@@ -33,16 +36,20 @@ const WhyChoseUs = () => {
   return (
     <div>
       <div className="flex items-start justify-start mt-40">
-        <div className="relative h-screen bg-cover bg-center w-1/2" style={{ backgroundImage: `url(${movies})` }}>
-          <div className="absolute inset-0 bg-gradient-to-l from-black via-black/70 to-black/30 opacity-95" />
+        <div className="relative h-screen bg-cover bg-center w-1/2 bg-gray-900">
+          <Suspense fallback={<div className="absolute inset-0 bg-gray-800 animate-pulse"></div>}>
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${BackgroundImage})` }}>
+              <div className="absolute inset-0 bg-gradient-to-l from-black via-black/70 to-black/30 opacity-95" />
+            </div>
+          </Suspense>
         </div>
 
-        <div className=" flex flex-col items-start justify-start sm:mr-20 gap-5">
+        <div className="flex flex-col items-start justify-start sm:mr-20 gap-5">
           <div className="flex items-center pt-4 gap-4">
             <p className="text-blue-600">Por Qué Elegirnos</p>
             <div className="bg-blue-600 w-20 h-0.5"></div>
           </div>
-          <div className=" text-white font-bold text-2xl sm:text-5xl">
+          <div className="text-white font-bold text-2xl sm:text-5xl">
             Nos esforzamos por ofrecer una experiencia
             <span className="text-blue-600"> IPTV! </span>
             completa y satisfactoria
