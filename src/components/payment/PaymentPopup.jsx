@@ -145,7 +145,7 @@ const PaymentPopup = ({ isOpen, onClose, onPaymentSelect, product }) => {
           </div>
         </div>
 
-        <p className="text-gray-400 text-sm mt-4 text-center">Para asistencia, contáctanos al +34 649 324 985</p>
+        <p className="text-gray-400 text-sm mt-4 text-center">Para asistencia, contáctanos al +212681431448</p>
       </div>
     </div>
   )
